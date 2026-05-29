@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Consultorio VITAE - Personal</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: white; margin: 20px; }
+        header { background-color: #067F8F; color: white; padding: 30px; text-align: center; }
+        nav { background-color: #333333; padding: 10px; }
+        nav a { color: white; text-decoration: none; margin-right: 15px; cursor: pointer; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid #ddd; padding: 12px; text-align: left; }
+        th { background-color: #067F8F; color: white; }
+        tr:nth-child(even) { background-color: #f2f2f2; }
+        footer { background-color: skyblue; padding: 15px; text-align: center; margin-top: 30px; }
+
+        .form-container { max-width: 500px; margin: 40px auto 20px auto; padding: 20px; border: 1px solid #067F8F; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; font-weight: bold; color: #333; font-size: 14px; }
+        input[type="text"], input[type="number"], input[type="date"] { width: 100%; padding: 10px; border: 1px solid #ddd; font-family: Arial, sans-serif; font-size: 14px; box-sizing: border-box; }
+        input:focus { outline: 1px solid #067F8F; }
+        .btn-submit { background-color: #067F8F; color: white; border: none; padding: 12px; width: 100%; font-size: 16px; font-weight: bold; cursor: pointer; font-family: Arial, sans-serif; }
+        .btn-submit:hover { background-color: #045b67; }
+        .form-title { color: #067F8F; margin-top: 0; margin-bottom: 20px; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>VITAE</h1>
+        <p><strong>Consultorio médico</strong></p>
+    </header>
+
+    <hr> 
+    <nav>
+        <a href="index_YL_0576.html">Inicio</a>
+        <a href="pacientesformulario.html">Pacientes</a>
+        <a href="consultasformulario.html">Consultas</a>
+        <a href="personalformulario.html">Personal Clínico</a>
+    </nav>
+
+    <main>
+        <div id="personal">
+            <h2>Personal Clínico y Médicos</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID Medico</th>
+                        <th>Nombre</th>
+                        <th>Especialidad</th>
+                        <th>Cedula</th>
+                        <th>Telefono personal</th>
+                        <th>Cargo</th>
+                        <th>Turno</th>
+                        <th>RFC</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>EMP-101</td>
+                        <td>Armando Leon Casas</td>
+                        <td>Medicina general</td>
+                        <td>123456-A</td>
+                        <td>555-0148</td>
+                        <td>Medico general</td>
+                        <td>Matutino</td>
+                        <td>LECA98765</td>
+                    </tr>
+                    <tr>
+                        <td>EMP-102</td>
+                        <td>Elsa Mendez Lopez</td>
+                        <td>Pediatria</td>
+                        <td>123098-B</td>
+                        <td>555-0243</td>
+                        <td>Medico especialista</td>
+                        <td>Vepertino</td>
+                        <td>MELE98102</td>
+                    </tr>
+                    <tr>
+                        <td>EMP-103</td>
+                        <td>Aquiles Perez Loya</td>
+                        <td>Ginecologia</td>
+                        <td>034752-C</td>
+                        <td>555-0377</td>
+                        <td>Medico especialista</td>
+                        <td>Matutino</td>
+                        <td>PELA356789</td>
+                    </tr>
+                    <tr>
+                        <td>EMP-104</td>
+                        <td>Zaira Martinez</td>
+                        <td>Enfermeria</td>
+                        <td>934672-D</td>
+                        <td>555-0911</td>
+                        <td>Jefe de enfermeria</td>
+                        <td>Mixto</td>
+                        <td>MAXZ83647</td>
+                    </tr>
+                    <tr>
+                        <td>EMP-105</td>
+                        <td>Esteban Gutierrez Malo</td>
+                        <td>Radiologia</td>
+                        <td>091235-E</td>
+                        <td>555-7654</td>
+                        <td>Tecnico Radiologo</td>
+                        <td>Vespertino</td>
+                        <td>GUME923645</td>
+                    </tr>
+                    <tr>
+                        <td>EMP-106</td>
+                        <td>Magdalena Valadez Luna</td>
+                        <td>N/A</td>
+                        <td>637524-F</td>
+                        <td>555-0599</td>
+                        <td>Asistente medica</td>
+                        <td>Matutino</td>
+                        <td>VALM83536</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="form-container">
+            <h2 class="form-title">Registro de Personal Clínico</h2>
+            <form action="registro_personal.html" method="POST">
+                <div class="form-group">
+                    <label>ID Médico / Empleado:</label>
+                    <input type="text" name="id_medico" placeholder="Ej: EMP-107" required>
+                </div>
+               
+                <div class="form-group">
+                    <label>Nombre Completo:</label>
+                    <input type="text" name="nombre" required>
+                </div>
+               
+                <div class="form-group">
+                    <label>Especialidad:</label>
+                    <input type="text" name="especialidad" placeholder="Ej: Pediatría / N/A" required>
+                </div>
+               
+                <div class="form-group">
+                    <label>Cédula Profesional:</label>
+                    <input type="text" name="cedula" placeholder="Ej: 123456-G" required>
+                </div>
+               
+                <div class="form-group">
+                    <label>Teléfono Personal:</label>
+                    <input type="number" name="telefono" placeholder="Ej: 5550123" required>
+                </div>
+           
+                <div class="form-group">
+                    <label>Cargo:</label>
+                    <input type="text" name="cargo" placeholder="Ej: Medico especialista" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Turno:</label>
+                    <input type="text" name="turno" placeholder="Ej: Matutino / Vespertino / Mixto" required>
+                </div>
+
+                <div class="form-group">
+                    <label>RFC:</label>
+                    <input type="text" name="rfc" placeholder="Ej: ABCD123456" required>
+                </div>
+
+                <button type="submit" class="btn-submit">Registrar Personal</button>
+            </form>
+        </div>
+    </main>
+
+    <footer>
+        <p><strong>Nombre completo:</strong> Yessenia Leos</p>
+        <p><strong>No. de control:</strong> 24308051280576</p>
+        <p><strong>Semestre y Grupo:</strong> 4-I</p>
+        <p><strong>Especialidad:</strong> Programación</p>
+    </footer>
+
+</body>
+</html>
