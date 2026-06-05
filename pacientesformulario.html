@@ -182,47 +182,58 @@
             </table>
         </div>
 
-        <div class="form-container">
+<div class="form-container">
             <h2 class="form-title">Alta de Pacientes</h2>
             <form action="altas.html" method="POST">
+                
                 <div class="form-group">
                     <label>ID del Paciente:</label>
                     <input type="number" name="id_paciente" required>
                 </div>
-               
+                
                 <div class="form-group">
-                    <label>Nombre:</label>
-                    <input type="text" name="nombre" required>
+                    <label>Nombre Completo:</label>
+                    <input type="text" name="nombre_completo" placeholder="Ej: Juan Pérez" required>
                 </div>
-               
-                <div class="form-group">
-                    <label>Apellidos:</label>
-                    <input type="text" name="apellidos" placeholder="Ej: Perez" required>
-                </div>
-               
-                <div class="form-group">
-                    <label>Sexo:</label>
-                    <input type="text" name="sexo" placeholder="Ej: Femenino" required>
-                </div>
-               
-                <div class="form-group">
-                    <label>Edad:</label>
-                    <input type="number" name="edad" placeholder="Ej: 21" required>
-                </div>
-           
-                <div class="form-group">
-                    <label>Teléfono:</label>
-                    <input type="number" name="telefono" placeholder="Ej: 555 555" required>
-                </div>
-
+                
                 <div class="form-group">
                     <label>Fecha de Nacimiento:</label>
-                    <input type="date" name="fecha_nac" required>
+                    <input type="date" name="fecha_nacimiento" required>
                 </div>
-
+                
                 <div class="form-group">
                     <label>Dirección:</label>
                     <input type="text" name="direccion" placeholder="Ej: Calle Azul, #2376" required>
+                </div>
+                
+                <div class="form-group">
+                    <label>Correo Electrónico:</label>
+                    <input type="email" name="correo_electronico" placeholder="Ej: usuario@correo.com" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Género:</label>
+                    <input type="text" name="genero" placeholder="Ej: Masculino / Femenino" required>
+                </div>
+            
+                <div class="form-group">
+                    <label>Teléfono Personal:</label>
+                    <input type="tel" name="telefono_personal" placeholder="Ej: 5555555555" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Teléfono de Emergencia:</label>
+                    <input type="tel" name="telefono_emergencia" placeholder="Ej: 5555555555" required>
+                </div>
+
+                <div class="form-group">
+                    <label>RFC:</label>
+                    <input type="text" name="rfc" placeholder="Ej: ABCD900101XXX" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Seguro:</label>
+                    <input type="text" name="seguro" placeholder="Ej: IMSS / Privado / No" required>
                 </div>
 
                 <button type="submit" class="btn-submit">Dar de alta al Paciente</button>
