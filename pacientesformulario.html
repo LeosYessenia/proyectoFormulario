@@ -8,16 +8,12 @@
         header { background-color: #067F8F; color: white; padding: 30px; text-align: center; }
         nav { background-color: #333333; padding: 10px; }
         nav a { color: white; text-decoration: none; margin-right: 15px; cursor: pointer; }
-        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-        th, td { border: 1px solid #ddd; padding: 12px; text-align: left; }
-        th { background-color: #067F8F; color: white; }
-        tr:nth-child(even) { background-color: #f2f2f2; }
         footer { background-color: skyblue; padding: 15px; text-align: center; margin-top: 30px; }
 
         .form-container { max-width: 500px; margin: 40px auto 20px auto; padding: 20px; border: 1px solid #067F8F; }
         .form-group { margin-bottom: 15px; }
         label { display: block; margin-bottom: 5px; font-weight: bold; color: #333; font-size: 14px; }
-        input[type="text"], input[type="number"], input[type="date"] { width: 100%; padding: 10px; border: 1px solid #ddd; font-family: Arial, sans-serif; font-size: 14px; box-sizing: border-box; }
+        input[type="text"], input[type="number"], input[type="date"], input[type="email"], input[type="tel"] { width: 100%; padding: 10px; border: 1px solid #ddd; font-family: Arial, sans-serif; font-size: 14px; box-sizing: border-box; }
         input:focus { outline: 1px solid #067F8F; }
         .btn-submit { background-color: #067F8F; color: white; border: none; padding: 12px; width: 100%; font-size: 16px; font-weight: bold; cursor: pointer; font-family: Arial, sans-serif; }
         .btn-submit:hover { background-color: #045b67; }
@@ -40,203 +36,60 @@
     </nav>
 
     <main>
-        <div id="pacientes">
-            <h2>Pacientes</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>ID Paciente</th>
-                        <th>Nombre Completo</th>
-                        <th>Fecha de nacimiento</th>
-                        <th>Direccion</th>
-                        <th>Correo electronico</th>
-                        <th>Genero</th>
-                        <th>Telefono personal</th>
-                        <th>Telefono de emergencia</th>
-                        <th>RFC</th>
-                        <th>Seguro</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>P-001</td>
-                        <td>Juan Pérez Garcia</td>
-                        <td>12-05-1985</td>
-                        <td>C. Los Olivos #452</td>
-                        <td>juan@gmail.com</td>
-                        <td>Masculino</td>
-                        <td>555-0102</td>
-                        <td>222-2590</td>
-                        <td>PEGJ12345</td>
-                        <td>GNP</td>
-                    </tr>
-                    <tr>
-                        <td>P-002</td>
-                        <td>María Rodriguez</td>
-                        <td>23-08-1992</td>
-                        <td>Av. de la paz</td>
-                        <td>mary@gmail.com</td>
-                        <td>Femenino</td>
-                        <td>555-0145</td>
-                        <td>574-4118</td>
-                        <td>ROXM56789</td>
-                        <td>AXA</td>
-                    </tr>
-                    <tr>
-                        <td>P-003</td>
-                        <td>Carlos Ruiz Lima</td>
-                        <td>30-01-1978</td>
-                        <td>Privada sol #89</td>
-                        <td>carlitos@gmail.com</td>
-                        <td>Masculino</td>
-                        <td>555-0189</td>
-                        <td>351-3529</td>
-                        <td>RULC10987</td>
-                        <td>MetLife</td>
-                    </tr>
-                    <tr>
-                        <td>P-004</td>
-                        <td>Ana Belen Soto</td>
-                        <td>15-11-2000</td>
-                        <td>C. Paseo #302</td>
-                        <td>belen@gmail.com</td>
-                        <td>Femenino</td>
-                        <td>555-0210</td>
-                        <td>555-0222</td>
-                        <td>SOAB23786</td>
-                        <td>GNP</td>
-                    </tr>
-                    <tr>
-                        <td>P-005</td>
-                        <td>Roberto Gomez</td>
-                        <td>05-04-1965</td>
-                        <td>Andador del rio #15</td>
-                        <td>robert@gmail.com</td>
-                        <td>Masculino</td>
-                        <td>555-0333</td>
-                        <td>555-4448</td>
-                        <td>GOXR7654</td>
-                        <td>BUPA</td>
-                    </tr>
-                    <tr>
-                        <td>p-006</td>
-                        <td>Lucia Mendez</td>
-                        <td>22-07-1888</td>
-                        <td>Callejon del Beso 22</td>
-                        <td>lucymo@gmail.com</td>
-                        <td>Femenino</td>
-                        <td>555-1235</td>
-                        <td>555-5432</td>
-                        <td>MEXL76589</td>
-                        <td>Mapfre</td>
-                    </tr>
-                    <tr>
-                        <td>p-007</td>
-                        <td>Diego Torres</td>
-                        <td>11-06-1882</td>
-                        <td>Boulevard Heroes 1010</td>
-                        <td>torread@gmail.com</td>
-                        <td>Masculino</td>
-                        <td>555-6569</td>
-                        <td>555-2831</td>
-                        <td>TOXD15879</td>
-                        <td>AXA</td>
-                    </tr>
-                    <tr>
-                        <td>p-008</td>
-                        <td>Elena Ferran</td>
-                        <td>19-02-2010</td>
-                        <td>Calle Pino 347</td>
-                        <td>elenitafer@gmail.com</td>
-                        <td>Femenino</td>
-                        <td>555-5900</td>
-                        <td>555-1368</td>
-                        <td>FEEL12365</td>
-                        <td>Seguros Leos</td>
-                    </tr>
-                    <tr>
-                        <td>p-009</td>
-                        <td>Sergio Ramos</td>
-                        <td>28-09-1993</td>
-                        <td>Avenida Insurgentes 2033</td>
-                        <td>sergio411@gmail.com</td>
-                        <td>Masculino</td>
-                        <td>555-2458</td>
-                        <td>555-1367</td>
-                        <td>RASE12365</td>
-                        <td>Seguros Monterrey NYL</td>
-                    </tr>
-                    <tr>
-                        <td>p-010</td>
-                        <td>Patricia Luna</td>
-                        <td>12-12-1995</td>
-                        <td>Calle Aves 77</td>
-                        <td>patylu@gmail.com</td>
-                        <td>Femenino</td>
-                        <td>555-7017</td>
-                        <td>555-7132</td>
-                        <td>LUXP45612</td>
-                        <td>Mapfre</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-
-<div class="form-container">
-            <h2 class="form-title">Alta de Pacientes</h2>
-            <form action="altas.html" method="POST">
-                
+        <div class="form-container">
+            <h2 class="form-title">Guardar Pacientes</h2>
+            <form>
                 <div class="form-group">
                     <label>ID del Paciente:</label>
-                    <input type="number" name="id_paciente" required>
+                    <input type="text" id="id_paciente" name="id_paciente" placeholder="Ej: P-011" required>
                 </div>
                 
                 <div class="form-group">
                     <label>Nombre Completo:</label>
-                    <input type="text" name="nombre_completo" placeholder="Ej: Juan Pérez" required>
+                    <input type="text" id="nombre_completo" name="nombre_completo" placeholder="Ej: Juan Pérez" required>
                 </div>
                 
                 <div class="form-group">
                     <label>Fecha de Nacimiento:</label>
-                    <input type="date" name="fecha_nacimiento" required>
+                    <input type="date" id="fecha_nacimiento" name="fecha_nacimiento" required>
                 </div>
                 
                 <div class="form-group">
                     <label>Dirección:</label>
-                    <input type="text" name="direccion" placeholder="Ej: Calle Azul, #2376" required>
+                    <input type="text" id="direccion" name="direccion" placeholder="Ej: Calle Azul, #2376" required>
                 </div>
                 
                 <div class="form-group">
                     <label>Correo Electrónico:</label>
-                    <input type="email" name="correo_electronico" placeholder="Ej: usuario@correo.com" required>
+                    <input type="email" id="correo_electronico" name="correo_electronico" placeholder="Ej: usuario@correo.com" required>
                 </div>
 
                 <div class="form-group">
                     <label>Género:</label>
-                    <input type="text" name="genero" placeholder="Ej: Masculino / Femenino" required>
+                    <input type="text" id="genero" name="genero" placeholder="Ej: Masculino / Femenino" required>
                 </div>
             
                 <div class="form-group">
                     <label>Teléfono Personal:</label>
-                    <input type="tel" name="telefono_personal" placeholder="Ej: 5555555555" required>
+                    <input type="tel" id="telefono_personal" name="telefono_personal" placeholder="Ej: 5555555555" required>
                 </div>
 
                 <div class="form-group">
                     <label>Teléfono de Emergencia:</label>
-                    <input type="tel" name="telefono_emergencia" placeholder="Ej: 5555555555" required>
+                    <input type="tel" id="telefono_emergencia" name="telefono_emergencia" placeholder="Ej: 5555555555" required>
                 </div>
 
                 <div class="form-group">
                     <label>RFC:</label>
-                    <input type="text" name="rfc" placeholder="Ej: ABCD900101XXX" required>
+                    <input type="text" id="rfc" name="rfc" placeholder="Ej: ABCD900101XXX" required>
                 </div>
 
                 <div class="form-group">
                     <label>Seguro:</label>
-                    <input type="text" name="seguro" placeholder="Ej: IMSS / Privado / No" required>
+                    <input type="text" id="seguro" name="seguro" placeholder="Ej: IMSS / Privado / No" required>
                 </div>
 
-                <button type="submit" class="btn-submit">Dar de alta al Paciente</button>
+                <button type="button" class="btn-submit" onclick="agregarPacientes()">Guardar Paciente</button>
             </form>
         </div>
     </main>
@@ -248,5 +101,77 @@
         <p><strong>Especialidad:</strong> Programación</p>
     </footer>
 
+    <script>
+        async function agregarPacientes(){
+            let idPaciente = document.getElementById("id_paciente").value;
+            let nombreCompleto = document.getElementById("nombre_completo").value;
+            let fechaNacimiento = document.getElementById("fecha_nacimiento").value;
+            let direccion = document.getElementById("direccion").value;
+            let correoElectronico = document.getElementById("correo_electronico").value;
+            let genero = document.getElementById("genero").value;
+            let telefonoPersonal = document.getElementById("telefono_personal").value;
+            let telefonoEmergencia = document.getElementById("telefono_emergencia").value;
+            let rfc = document.getElementById("rfc").value;
+            let seguro = document.getElementById("seguro").value;
+
+            if(
+                idPaciente == "" || nombreCompleto == "" || fechaNacimiento == "" || 
+                direccion == "" || correoElectronico == "" || genero == "" || 
+                telefonoPersonal == "" || telefonoEmergencia == "" || rfc == "" || seguro == ""
+            ){
+                alert("Completa todos los campos");
+                return;
+            }
+
+            const datosPacientes = {
+                ID_Paciente: idPaciente,
+                Nombre_Completo: nombreCompleto,
+                Fecha_nacimiento: fechaNacimiento,
+                Direccion: direccion,
+                Correo_electronico: correoElectronico,
+                Genero: genero,
+                Telefono_personal: telefonoPersonal,
+                Telefono_emergencia: telefonoEmergencia,
+                RFC: rfc,
+                Seguro: seguro
+            };
+
+            try {
+                const respuesta = await fetch('http://localhost:5000/api/pacientes', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(datosPacientes)
+                });
+
+                const resultado = await respuesta.json();
+
+                if (respuesta.ok) {
+                    // SE ELIMINÓ EL CÓDIGO QUE BUSCABA LA TABLA Y AGREGABA FILAS
+
+                    // Limpiar el formulario para un nuevo registro
+                    document.getElementById("id_paciente").value = "";
+                    document.getElementById("nombre_completo").value = "";
+                    document.getElementById("fecha_nacimiento").value = "";
+                    document.getElementById("direccion").value = "";
+                    document.getElementById("correo_electronico").value = "";
+                    document.getElementById("genero").value = "";
+                    document.getElementById("telefono_personal").value = "";
+                    document.getElementById("telefono_emergencia").value = "";
+                    document.getElementById("rfc").value = "";
+                    document.getElementById("seguro").value = "";
+
+                    alert(resultado.mensaje);
+                } else {
+                    alert("Error al guardar en el servidor: " + resultado.error);
+                }
+
+            } catch (error) {
+                console.error("Error en la petición:", error);
+                alert("No se pudo conectar con el servidor backend. ¿Está encendido?");
+            }
+        }
+    </script>
 </body>
 </html>
