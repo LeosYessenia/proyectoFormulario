@@ -36,64 +36,26 @@
     </nav>
 
     <main>
-        <div style="max-width: 500px; margin: 30px auto 0 auto; display: flex; gap: 10px;">
-            <button id="btnModoRegistrar" onclick="cambiarModo('registrar')" style="flex: 1; padding: 12px; background-color: #067F8F; color: white; border: none; font-weight: bold; cursor: pointer; font-family: Arial;">[+] Registrar Nuevo</button>
-            <button id="btnModoBuscar" onclick="cambiarModo('buscar')" style="flex: 1; padding: 12px; background-color: #f4f4f4; color: #333; border: 1px solid #ddd; font-weight: bold; cursor: pointer; font-family: Arial;">[🔍] Buscar Paciente</button>
+        <div style="max-width: 600px; margin: 30px auto 0 auto; display: flex; gap: 10px; flex-wrap: wrap;">
+            <button id="btnModoRegistrar" onclick="cambiarModo('registrar')" style="flex: 1; padding: 12px; background-color: #067F8F; color: white; border: none; font-weight: bold; cursor: pointer; font-family: Arial;">[+] Registrar</button>
+            <button id="btnModoBuscar" onclick="cambiarModo('buscar')" style="flex: 1; padding: 12px; background-color: #f4f4f4; color: #333; border: 1px solid #ddd; font-weight: bold; cursor: pointer; font-family: Arial;">[🔍] Buscar</button>
+            <button id="btnModoActualizar" onclick="cambiarModo('actualizar')" style="flex: 1; padding: 12px; background-color: #f4f4f4; color: #333; border: 1px solid #ddd; font-weight: bold; cursor: pointer; font-family: Arial;">[✏️] Actualizar</button>
+            <button id="btnModoEliminar" onclick="cambiarModo('eliminar')" style="flex: 1; padding: 12px; background-color: #f4f4f4; color: #333; border: 1px solid #ddd; font-weight: bold; cursor: pointer; font-family: Arial;">[❌] Eliminar</button>
         </div>
 
         <div id="seccionRegistrar" class="form-container" style="margin-top: 10px; display: block;">
             <h2 class="form-title">Registrar Pacientes</h2>
             <form>
-                <div class="form-group">
-                    <label>ID del Paciente:</label>
-                    <input type="text" id="id_paciente" name="id_paciente" placeholder="Ej: P-011" required>
-                </div>
-                
-                <div class="form-group">
-                    <label>Nombre Completo:</label>
-                    <input type="text" id="nombre_completo" name="nombre_completo" placeholder="Ej: Juan Pérez" required>
-                </div>
-                
-                <div class="form-group">
-                    <label>Fecha de Nacimiento:</label>
-                    <input type="date" id="fecha_nacimiento" name="fecha_nacimiento" required>
-                </div>
-                
-                <div class="form-group">
-                    <label>Dirección:</label>
-                    <input type="text" id="direccion" name="direccion" placeholder="Ej: Calle Azul, #2376" required>
-                </div>
-                
-                <div class="form-group">
-                    <label>Correo Electrónico:</label>
-                    <input type="email" id="correo_electronico" name="correo_electronico" placeholder="Ej: usuario@correo.com" required>
-                </div>
-
-                <div class="form-group">
-                    <label>Género:</label>
-                    <input type="text" id="genero" name="genero" placeholder="Ej: Masculino / Femenino" required>
-                </div>
-            
-                <div class="form-group">
-                    <label>Teléfono Personal:</label>
-                    <input type="tel" id="telefono_personal" name="telefono_personal" placeholder="Ej: 5555555555" required>
-                </div>
-
-                <div class="form-group">
-                    <label>Teléfono de Emergencia:</label>
-                    <input type="tel" id="telefono_emergencia" name="telefono_emergencia" placeholder="Ej: 5555555555" required>
-                </div>
-
-                <div class="form-group">
-                    <label>RFC:</label>
-                    <input type="text" id="rfc" name="rfc" placeholder="Ej: ABCD900101XXX" required>
-                </div>
-
-                <div class="form-group">
-                    <label>Seguro:</label>
-                    <input type="text" id="seguro" name="seguro" placeholder="Ej: IMSS / Privado / No" required>
-                </div>
-
+                <div class="form-group"><label>ID del Paciente:</label><input type="text" id="id_paciente" placeholder="Ej: P-011" required></div>
+                <div class="form-group"><label>Nombre Completo:</label><input type="text" id="nombre_completo" placeholder="Ej: Juan Pérez" required></div>
+                <div class="form-group"><label>Fecha de Nacimiento:</label><input type="date" id="fecha_nacimiento" required></div>
+                <div class="form-group"><label>Dirección:</label><input type="text" id="direccion" placeholder="Ej: Calle Azul, #2376" required></div>
+                <div class="form-group"><label>Correo Electrónico:</label><input type="email" id="correo_electronico" placeholder="Ej: usuario@correo.com" required></div>
+                <div class="form-group"><label>Género:</label><input type="text" id="genero" placeholder="Ej: Masculino / Femenino" required></div>
+                <div class="form-group"><label>Teléfono Personal:</label><input type="tel" id="telefono_personal" placeholder="Ej: 5555555555" required></div>
+                <div class="form-group"><label>Teléfono de Emergencia:</label><input type="tel" id="telefono_emergencia" placeholder="Ej: 5555555555" required></div>
+                <div class="form-group"><label>RFC:</label><input type="text" id="rfc" placeholder="Ej: ABCD900101XXX" required></div>
+                <div class="form-group"><label>Seguro:</label><input type="text" id="seguro" placeholder="Ej: IMSS / Privado / No" required></div>
                 <button type="button" class="btn-submit" onclick="agregarPacientes()">Guardar Paciente</button>
             </form>
         </div>
@@ -104,17 +66,42 @@
                 <input type="text" id="id_buscar" placeholder="Escribe el ID del paciente a buscar...">
                 <button type="button" class="btn-submit" style="width: auto; padding: 0 25px; background-color: #333;" onclick="buscarPacientePorId()">Buscar</button>
             </div>
-
             <table border="1" style="width: 100%; border-collapse: collapse; text-align: left; font-family: Arial; margin-top: 20px; display: none;" id="tablaResultado">
                 <thead style="background-color: #067F8F; color: white;">
-                    <tr>
-                        <th style="padding: 10px;">Campo</th>
-                        <th style="padding: 10px;">Dato del Paciente</th>
-                    </tr>
+                    <tr><th style="padding: 10px;">Campo</th><th style="padding: 10px;">Dato del Paciente</th></tr>
                 </thead>
-                <tbody id="cuerpoResultado">
-                </tbody>
+                <tbody id="cuerpoResultado"></tbody>
             </table>
+        </div>
+
+        <div id="seccionActualizar" class="form-container" style="margin-top: 10px; display: none;">
+            <h2 class="form-title" style="color: #ffc107;">Actualizar Datos de Paciente</h2>
+            <div class="form-group" style="display: flex; gap: 10px;">
+                <input type="text" id="id_actualizar_buscar" placeholder="ID del paciente a editar...">
+                <button type="button" class="btn-submit" style="width: auto; padding: 0 20px; background-color: #ffc107; color: black;" onclick="cargarPacienteParaEditar()">Cargar</button>
+            </div>
+            
+            <form id="formularioEdicion" style="display: none; border-top: 2px dashed #067F8F; padding-top: 15px;">
+                <div class="form-group"><label>Nombre Completo:</label><input type="text" id="act_nombre"></div>
+                <div class="form-group"><label>Fecha de Nacimiento:</label><input type="date" id="act_fecha"></div>
+                <div class="form-group"><label>Dirección:</label><input type="text" id="act_direccion"></div>
+                <div class="form-group"><label>Correo Electrónico:</label><input type="email" id="act_correo"></div>
+                <div class="form-group"><label>Género:</label><input type="text" id="act_genero"></div>
+                <div class="form-group"><label>Teléfono Personal:</label><input type="tel" id="act_telef_per"></div>
+                <div class="form-group"><label>Teléfono de Emergencia:</label><input type="tel" id="act_telef_eme"></div>
+                <div class="form-group"><label>RFC:</label><input type="text" id="act_rfc"></div>
+                <div class="form-group"><label>Seguro:</label><input type="text" id="act_seguro"></div>
+                <button type="button" class="btn-submit" style="background-color: #28a745;" onclick="actualizarPaciente()">Guardar Cambios</button>
+            </form>
+        </div>
+
+        <div id="seccionEliminar" class="form-container" style="margin-top: 10px; display: none;">
+            <h2 class="form-title" style="color: #dc3545;">Eliminar Paciente</h2>
+            <div class="form-group">
+                <label>Escribe el ID del paciente a borrar definitivamente:</label>
+                <input type="text" id="id_eliminar" placeholder="Ej: P-011">
+            </div>
+            <button type="button" class="btn-submit" style="background-color: #dc3545;" onclick="eliminarPaciente()">Eliminar del Sistema</button>
         </div>
     </main>
 
@@ -125,134 +112,6 @@
         <p><strong>Especialidad:</strong> Programación</p>
     </footer>
 
-    <script>
-        const backendURL = "https://mean-beans-itch.loca.lt";
-
-        async function agregarPacientes(){
-            let idPaciente = document.getElementById("id_paciente").value;
-            let nombreCompleto = document.getElementById("nombre_completo").value;
-            let fechaNacimiento = document.getElementById("fecha_nacimiento").value;
-            let direccion = document.getElementById("direccion").value;
-            let correoElectronico = document.getElementById("correo_electronico").value;
-            let genero = document.getElementById("genero").value;
-            let telefonoPersonal = document.getElementById("telefono_personal").value;
-            let telefonoEmergencia = document.getElementById("telefono_emergencia").value;
-            let rfc = document.getElementById("rfc").value;
-            let seguro = document.getElementById("seguro").value;
-
-            if(
-                idPaciente == "" || nombreCompleto == "" || fechaNacimiento == "" || 
-                direccion == "" || correoElectronico == "" || genero == "" || 
-                telefonoPersonal == "" || telefonoEmergencia == "" || rfc == "" || seguro == ""
-            ){
-                alert("Completa todos los campos");
-                return;
-            }
-
-            const datosPacientes = {
-                ID_Paciente: idPaciente,
-                Nombre_Completo: nombreCompleto,
-                Fecha_nacimiento: fechaNacimiento,
-                Direccion: direccion,
-                Correo_electronico: correoElectronico,
-                Genero: genero,
-                Telefono_personal: telefonoPersonal,
-                Telefono_emergencia: telefonoEmergencia,
-                RFC: rfc,
-                Seguro: seguro
-            };
-
-            try {
-                const respuesta = await fetch(`${backendURL}/api/pacientes`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(datosPacientes)
-                });
-
-                const resultado = await respuesta.json();
-
-                if (respuesta.ok) {
-                    document.getElementById("id_paciente").value = "";
-                    document.getElementById("nombre_completo").value = "";
-                    document.getElementById("fecha_nacimiento").value = "";
-                    document.getElementById("direccion").value = "";
-                    document.getElementById("correo_electronico").value = "";
-                    document.getElementById("genero").value = "";
-                    document.getElementById("telefono_personal").value = "";
-                    document.getElementById("telefono_emergencia").value = "";
-                    document.getElementById("rfc").value = "";
-                    document.getElementById("seguro").value = "";
-
-                    alert(resultado.mensaje);
-                } else {
-                    alert("Error al guardar en el servidor: " + resultado.error);
-                }
-
-            } catch (error) {
-                console.error("Error en la petición:", error);
-                alert("No se pudo conectar con el servidor backend. ¿Está encendido?");
-            }
-        }
-
-        // === FUNCIÓN PARA CONTROLAR EL CAMBIO DE PANTALLA ===
-        function cambiarModo(modo) {
-            const seccionReg = document.getElementById("seccionRegistrar");
-            const seccionBus = document.getElementById("seccionBuscar");
-            const btnReg = document.getElementById("btnModoRegistrar");
-            const btnBus = document.getElementById("btnModoBuscar");
-
-            if (modo === 'registrar') {
-                seccionReg.style.display = "block";
-                seccionBus.style.display = "none";
-                btnReg.style.backgroundColor = "#067F8F"; btnReg.style.color = "white"; btnReg.style.border = "none";
-                btnBus.style.backgroundColor = "#f4f4f4"; btnBus.style.color = "#333"; btnBus.style.border = "1px solid #ddd";
-            } else {
-                seccionReg.style.display = "none";
-                seccionBus.style.display = "block";
-                btnReg.style.backgroundColor = "#f4f4f4"; btnReg.style.color = "#333"; btnReg.style.border = "1px solid #ddd";
-                btnBus.style.backgroundColor = "#067F8F"; btnBus.style.color = "white"; btnBus.style.border = "none";
-            }
-        }
-
-        async function buscarPacientePorId() {
-            let idBuscar = document.getElementById("id_buscar").value;
-
-            if (idBuscar == "") {
-                alert("Por favor, escribe un ID para buscar.");
-                return;
-            }
-
-            try {
-                const respuesta = await fetch(`${backendURL}/api/pacientes/${idBuscar}`);
-                const tabla = document.getElementById("tablaResultado");
-                const cuerpoTabla = document.getElementById("cuerpoResultado");
-
-                if (respuesta.status === 404) {
-                    tabla.style.display = "none";
-                    alert("No se encontró ningún paciente con ese ID en MongoDB Atlas.");
-                    return;
-                }
-
-                const paciente = await respuesta.json();
-
-                cuerpoTabla.innerHTML = `
-                    <tr><td style="padding: 10px; font-weight:bold; border: 1px solid #ddd; background-color: #f9f9f9;">ID Paciente</td><td style="padding: 10px; border: 1px solid #ddd;">${paciente.ID_Paciente}</td></tr>
-                    <tr><td style="padding: 10px; font-weight:bold; border: 1px solid #ddd; background-color: #f9f9f9;">Nombre</td><td style="padding: 10px; border: 1px solid #ddd;">${paciente.Nombre_Completo}</td></tr>
-                    <tr><td style="padding: 10px; font-weight:bold; border: 1px solid #ddd; background-color: #f9f9f9;">RFC</td><td style="padding: 10px; border: 1px solid #ddd;">${paciente.RFC}</td></tr>
-                    <tr><td style="padding: 10px; font-weight:bold; border: 1px solid #ddd; background-color: #f9f9f9;">Correo</td><td style="padding: 10px; border: 1px solid #ddd;">${paciente.Correo_electronico}</td></tr>
-                    <tr><td style="padding: 10px; font-weight:bold; border: 1px solid #ddd; background-color: #f9f9f9;">Seguro Médico</td><td style="padding: 10px; border: 1px solid #ddd;">${paciente.Seguro}</td></tr>
-                    <tr><td style="padding: 10px; font-weight:bold; border: 1px solid #ddd; background-color: #f9f9f9;">Teléfono Personal</td><td style="padding: 10px; border: 1px solid #ddd;">${paciente.Telefono_personal}</td></tr>
-                `;
-
-                tabla.style.display = "table";
-
-            } catch (error) {
-                console.error("Error en la búsqueda:", error);
-                alert("Hubo un problema de conexión con el servidor.");
-            }
-        }
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
