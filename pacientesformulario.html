@@ -36,7 +36,12 @@
     </nav>
 
     <main>
-        <div class="form-container">
+        <div style="max-width: 500px; margin: 30px auto 0 auto; display: flex; gap: 10px;">
+            <button id="btnModoRegistrar" onclick="cambiarModo('registrar')" style="flex: 1; padding: 12px; background-color: #067F8F; color: white; border: none; font-weight: bold; cursor: pointer; font-family: Arial;">[+] Registrar Nuevo</button>
+            <button id="btnModoBuscar" onclick="cambiarModo('buscar')" style="flex: 1; padding: 12px; background-color: #f4f4f4; color: #333; border: 1px solid #ddd; font-weight: bold; cursor: pointer; font-family: Arial;">[🔍] Buscar Paciente</button>
+        </div>
+
+        <div id="seccionRegistrar" class="form-container" style="margin-top: 10px; display: block;">
             <h2 class="form-title">Registrar Pacientes</h2>
             <form>
                 <div class="form-group">
@@ -92,6 +97,25 @@
                 <button type="button" class="btn-submit" onclick="agregarPacientes()">Guardar Paciente</button>
             </form>
         </div>
+
+        <div id="seccionBuscar" class="form-container" style="margin-top: 10px; display: none;">
+            <h2 class="form-title" style="color: #333;">Consultar Paciente</h2>
+            <div class="form-group" style="display: flex; gap: 10px;">
+                <input type="text" id="id_buscar" placeholder="Escribe el ID del paciente a buscar...">
+                <button type="button" class="btn-submit" style="width: auto; padding: 0 25px; background-color: #333;" onclick="buscarPacientePorId()">Buscar</button>
+            </div>
+
+            <table border="1" style="width: 100%; border-collapse: collapse; text-align: left; font-family: Arial; margin-top: 20px; display: none;" id="tablaResultado">
+                <thead style="background-color: #067F8F; color: white;">
+                    <tr>
+                        <th style="padding: 10px;">Campo</th>
+                        <th style="padding: 10px;">Dato del Paciente</th>
+                    </tr>
+                </thead>
+                <tbody id="cuerpoResultado">
+                </tbody>
+            </table>
+        </div>
     </main>
 
     <footer>
@@ -102,6 +126,11 @@
     </footer>
 
     <script>
+        // Esta línea detecta dinámicamente si estás en el puerto de Live Server (5500) o local,
+        // y redirige las peticiones de forma forzada al puerto del backend (5000) de Project IDX.
+        const backendURL = window.location.origin.replace("-5500-", "-5000-").replace(":5500", ":5000");
+
+        // === FUNCIÓN PARA GUARDAR ===
         async function agregarPacientes(){
             let idPaciente = document.getElementById("id_paciente").value;
             let nombreCompleto = document.getElementById("nombre_completo").value;
@@ -137,7 +166,7 @@
             };
 
             try {
-                const respuesta = await fetch('http://localhost:5000/api/pacientes', {
+                const respuesta = await fetch(`${backendURL}/api/pacientes`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -148,9 +177,6 @@
                 const resultado = await respuesta.json();
 
                 if (respuesta.ok) {
-                    // SE ELIMINÓ EL CÓDIGO QUE BUSCABA LA TABLA Y AGREGABA FILAS
-
-                    // Limpiar el formulario para un nuevo registro
                     document.getElementById("id_paciente").value = "";
                     document.getElementById("nombre_completo").value = "";
                     document.getElementById("fecha_nacimiento").value = "";
@@ -170,6 +196,65 @@
             } catch (error) {
                 console.error("Error en la petición:", error);
                 alert("No se pudo conectar con el servidor backend. ¿Está encendido?");
+            }
+        }
+
+        // === FUNCIÓN PARA CONTROLAR EL CAMBIO DE PANTALLA ===
+        function cambiarModo(modo) {
+            const seccionReg = document.getElementById("seccionRegistrar");
+            const seccionBus = document.getElementById("seccionBuscar");
+            const btnReg = document.getElementById("btnModoRegistrar");
+            const btnBus = document.getElementById("btnModoBuscar");
+
+            if (modo === 'registrar') {
+                seccionReg.style.display = "block";
+                seccionBus.style.display = "none";
+                btnReg.style.backgroundColor = "#067F8F"; btnReg.style.color = "white"; btnReg.style.border = "none";
+                btnBus.style.backgroundColor = "#f4f4f4"; btnBus.style.color = "#333"; btnBus.style.border = "1px solid #ddd";
+            } else {
+                seccionReg.style.display = "none";
+                seccionBus.style.display = "block";
+                btnReg.style.backgroundColor = "#f4f4f4"; btnReg.style.color = "#333"; btnReg.style.border = "1px solid #ddd";
+                btnBus.style.backgroundColor = "#067F8F"; btnBus.style.color = "white"; btnBus.style.border = "none";
+            }
+        }
+
+        // === FUNCIÓN PARA BUSCAR ===
+        async function buscarPacientePorId() {
+            let idBuscar = document.getElementById("id_buscar").value;
+
+            if (idBuscar == "") {
+                alert("Por favor, escribe un ID para buscar.");
+                return;
+            }
+
+            try {
+                const respuesta = await fetch(`${backendURL}/api/pacientes/${idBuscar}`);
+                const tabla = document.getElementById("tablaResultado");
+                const cuerpoTabla = document.getElementById("cuerpoResultado");
+
+                if (respuesta.status === 404) {
+                    tabla.style.display = "none";
+                    alert("No se encontró ningún paciente con ese ID en MongoDB Atlas.");
+                    return;
+                }
+
+                const paciente = await respuesta.json();
+
+                cuerpoTabla.innerHTML = `
+                    <tr><td style="padding: 10px; font-weight:bold; border: 1px solid #ddd; background-color: #f9f9f9;">ID Paciente</td><td style="padding: 10px; border: 1px solid #ddd;">${paciente.ID_Paciente}</td></tr>
+                    <tr><td style="padding: 10px; font-weight:bold; border: 1px solid #ddd; background-color: #f9f9f9;">Nombre</td><td style="padding: 10px; border: 1px solid #ddd;">${paciente.Nombre_Completo}</td></tr>
+                    <tr><td style="padding: 10px; font-weight:bold; border: 1px solid #ddd; background-color: #f9f9f9;">RFC</td><td style="padding: 10px; border: 1px solid #ddd;">${paciente.RFC}</td></tr>
+                    <tr><td style="padding: 10px; font-weight:bold; border: 1px solid #ddd; background-color: #f9f9f9;">Correo</td><td style="padding: 10px; border: 1px solid #ddd;">${paciente.Correo_electronico}</td></tr>
+                    <tr><td style="padding: 10px; font-weight:bold; border: 1px solid #ddd; background-color: #f9f9f9;">Seguro Médico</td><td style="padding: 10px; border: 1px solid #ddd;">${paciente.Seguro}</td></tr>
+                    <tr><td style="padding: 10px; font-weight:bold; border: 1px solid #ddd; background-color: #f9f9f9;">Teléfono Personal</td><td style="padding: 10px; border: 1px solid #ddd;">${paciente.Telefono_personal}</td></tr>
+                `;
+
+                tabla.style.display = "table";
+
+            } catch (error) {
+                console.error("Error en la búsqueda:", error);
+                alert("Hubo un problema de conexión con el servidor.");
             }
         }
     </script>
