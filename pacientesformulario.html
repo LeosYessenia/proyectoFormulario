@@ -126,11 +126,8 @@
     </footer>
 
     <script>
-        // Esta línea detecta dinámicamente si estás en el puerto de Live Server (5500) o local,
-        // y redirige las peticiones de forma forzada al puerto del backend (5000) de Project IDX.
-        const backendURL = "https://5000-proyectoformulario-15022138.cloudworkstations.dev";
+        const backendURL = "https://funny-dingos-press.loca.lt";
 
-        // === FUNCIÓN PARA GUARDAR ===
         async function agregarPacientes(){
             let idPaciente = document.getElementById("id_paciente").value;
             let nombreCompleto = document.getElementById("nombre_completo").value;
@@ -219,7 +216,6 @@
             }
         }
 
-        // === FUNCIÓN PARA BUSCAR ===
         async function buscarPacientePorId() {
             let idBuscar = document.getElementById("id_buscar").value;
 
