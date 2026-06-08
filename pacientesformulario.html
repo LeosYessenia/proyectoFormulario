@@ -45,7 +45,7 @@
 
         <div id="seccionRegistrar" class="form-container" style="margin-top: 10px; display: block;">
             <h2 class="form-title">Registrar Pacientes</h2>
-            <form>
+            <form id="formularioRegistro">
                 <div class="form-group"><label>ID del Paciente:</label><input type="text" id="id_paciente" placeholder="Ej: P-011" required></div>
                 <div class="form-group"><label>Nombre Completo:</label><input type="text" id="nombre_completo" placeholder="Ej: Juan Pérez" required></div>
                 <div class="form-group"><label>Fecha de Nacimiento:</label><input type="date" id="fecha_nacimiento" required></div>
@@ -56,6 +56,7 @@
                 <div class="form-group"><label>Teléfono de Emergencia:</label><input type="tel" id="telefono_emergencia" placeholder="Ej: 5555555555" required></div>
                 <div class="form-group"><label>RFC:</label><input type="text" id="rfc" placeholder="Ej: ABCD900101XXX" required></div>
                 <div class="form-group"><label>Seguro:</label><input type="text" id="seguro" placeholder="Ej: IMSS / Privado / No" required></div>
+                
                 <button type="button" class="btn-submit" onclick="agregarPacientes()">Guardar Paciente</button>
             </form>
         </div>
@@ -80,7 +81,6 @@
                 <input type="text" id="id_actualizar_buscar" placeholder="ID del paciente a editar...">
                 <button type="button" class="btn-submit" style="width: auto; padding: 0 20px; background-color: #ffc107; color: black;" onclick="cargarPacienteParaEditar()">Cargar</button>
             </div>
-            
             <form id="formularioEdicion" style="display: none; border-top: 2px dashed #067F8F; padding-top: 15px;">
                 <div class="form-group"><label>Nombre Completo:</label><input type="text" id="act_nombre"></div>
                 <div class="form-group"><label>Fecha de Nacimiento:</label><input type="date" id="act_fecha"></div>
@@ -112,6 +112,93 @@
         <p><strong>Especialidad:</strong> Programación</p>
     </footer>
 
-    <script src="script.js"></script>
+    <script>
+        function cambiarModo(modo) {
+            const secciones = ['seccionRegistrar', 'seccionBuscar', 'seccionActualizar', 'seccionEliminar'];
+            const botones = ['btnModoRegistrar', 'btnModoBuscar', 'btnModoActualizar', 'btnModoEliminar'];
+
+            secciones.forEach(sec => document.getElementById(sec).style.display = "none");
+            botones.forEach(btn => {
+                document.getElementById(btn).style.backgroundColor = "#f4f4f4";
+                document.getElementById(btn).style.color = "#333";
+                document.getElementById(btn).style.border = "1px solid #ddd";
+            });
+
+            if(modo === 'registrar') {
+                document.getElementById('seccionRegistrar').style.display = "block";
+                document.getElementById('btnModoRegistrar').style.backgroundColor = "#067F8F";
+                document.getElementById('btnModoRegistrar').style.color = "white";
+            } else if(modo === 'buscar') {
+                document.getElementById('seccionBuscar').style.display = "block";
+                document.getElementById('btnModoBuscar').style.backgroundColor = "#067F8F";
+                document.getElementById('btnModoBuscar').style.color = "white";
+            } else if(modo === 'actualizar') {
+                document.getElementById('seccionActualizar').style.display = "block";
+                document.getElementById('btnModoActualizar').style.backgroundColor = "#ffc107";
+                document.getElementById('btnModoActualizar').style.color = "black";
+            } else if(modo === 'eliminar') {
+                document.getElementById('seccionEliminar').style.display = "block";
+                document.getElementById('btnModoEliminar').style.backgroundColor = "#dc3545";
+                document.getElementById('btnModoEliminar').style.color = "white";
+            }
+        }
+
+        async function agregarPacientes(){
+            console.log("Botón presionado, ejecutando agregarPacientes..."); 
+            
+            let idPaciente = document.getElementById("id_paciente").value;
+            let nombreCompleto = document.getElementById("nombre_completo").value;
+            let fechaNacimiento = document.getElementById("fecha_nacimiento").value;
+            let direccion = document.getElementById("direccion").value;
+            let correoElectronico = document.getElementById("correo_electronico").value;
+            let genero = document.getElementById("genero").value;
+            let telefonoPersonal = document.getElementById("telefono_personal").value;
+            let telefonoEmergencia = document.getElementById("telefono_emergencia").value;
+            let rfc = document.getElementById("rfc").value;
+            let seguro = document.getElementById("seguro").value;
+
+            if(!idPaciente || !nombreCompleto || !fechaNacimiento || !direccion || !correoElectronico || !genero || !telefonoPersonal || !telefonoEmergencia || !rfc || !seguro){
+                alert("Por favor, completa todos los campos del formulario antes de guardar.");
+                return;
+            }
+
+            const datosPacientes = {
+                ID_Paciente: idPaciente,
+                Nombre_Completo: nombreCompleto,
+                Fecha_nacimiento: fechaNacimiento,
+                Direccion: direccion,
+                Correo_electronico: correoElectronico,
+                Genero: genero,
+                Telefono_personal: telefonoPersonal,
+                Telefono_emergencia: telefonoEmergencia,
+                RFC: rfc,
+                Seguro: seguro
+            };
+
+            try {
+                const respuesta = await fetch('/api/pacientes', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(datosPacientes)
+                });
+
+                const resultado = await respuesta.json();
+
+                if (respuesta.ok) {
+                    alert("¡Éxito!: " + resultado.mensaje);
+                    document.getElementById("formularioRegistro").reset();
+                } else {
+                    alert("Error en el servidor: " + resultado.error);
+                }
+            } catch (error) {
+                console.error("Error completo:", error);
+                alert("No se pudo conectar con el servidor. Verifica que ejecutaste 'node server.js' en la terminal.");
+            }
+        }
+        async function buscarPacientePorId() { /* ... */ }
+        async function cargarPacienteParaEditar() { /* ... */ }
+        async function actualizarPaciente() { /* ... */ }
+        async function eliminarPaciente() { /* ... */ }
+    </script>
 </body>
 </html>
