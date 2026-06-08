@@ -8,16 +8,24 @@
         header { background-color: #067F8F; color: white; padding: 30px; text-align: center; }
         nav { background-color: #333333; padding: 10px; }
         nav a { color: white; text-decoration: none; margin-right: 15px; cursor: pointer; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid #ddd; padding: 12px; text-align: left; }
+        th { background-color: #067F8F; color: white; }
+        tr:nth-child(even) { background-color: #f2f2f2; }
         footer { background-color: skyblue; padding: 15px; text-align: center; margin-top: 30px; }
 
-        .form-container { max-width: 500px; margin: 40px auto 20px auto; padding: 20px; border: 1px solid #067F8F; }
+        /* Estilos de la Barra de Botones de Operaciones */
+        .crud-bar { display: flex; gap: 10px; margin: 20px 0; justify-content: center; }
+        .btn-mode { padding: 12px 20px; font-size: 15px; font-weight: bold; cursor: pointer; border-radius: 4px; border: 1px solid #ddd; background-color: #f4f4f4; color: #333; transition: all 0.3s; }
+
+        .form-container { max-width: 500px; margin: 20px auto; padding: 20px; border: 1px solid #067F8F; border-radius: 5px; }
         .form-group { margin-bottom: 15px; }
         label { display: block; margin-bottom: 5px; font-weight: bold; color: #333; font-size: 14px; }
         input[type="text"], input[type="number"], input[type="date"], input[type="email"], input[type="tel"] { width: 100%; padding: 10px; border: 1px solid #ddd; font-family: Arial, sans-serif; font-size: 14px; box-sizing: border-box; }
         input:focus { outline: 1px solid #067F8F; }
-        .btn-submit { background-color: #067F8F; color: white; border: none; padding: 12px; width: 100%; font-size: 16px; font-weight: bold; cursor: pointer; font-family: Arial, sans-serif; }
+        .btn-submit { background-color: #067F8F; color: white; border: none; padding: 12px; width: 100%; font-size: 16px; font-weight: bold; cursor: pointer; font-family: Arial, sans-serif; border-radius: 4px; }
         .btn-submit:hover { background-color: #045b67; }
-        .form-title { color: #067F8F; margin-top: 0; margin-bottom: 20px; }
+        .form-title { color: #067F8F; margin-top: 0; margin-bottom: 20px; text-align: center; }
     </style>
 </head>
 <body>
@@ -30,58 +38,104 @@
     <hr> 
     <nav>
         <a href="index.html">Inicio</a>
-        <a href="pacientesformulario.html">Pacientes</a>
-        <a href="consultasformulario.html">Consultas</a>
-        <a href="personalformulario.html">Personal Clínico</a>
+        <a href="pacientes.html">Pacientes</a>
+        <a href="consultas.html">Consultas</a>
+        <a href="personal.html">Personal Clínico</a>
     </nav>
 
     <main>
-        <div style="max-width: 600px; margin: 30px auto 0 auto; display: flex; gap: 10px; flex-wrap: wrap;">
-            <button id="btnModoRegistrar" onclick="cambiarModo('registrar')" style="flex: 1; padding: 12px; background-color: #067F8F; color: white; border: none; font-weight: bold; cursor: pointer; font-family: Arial;">[+] Registrar</button>
-            <button id="btnModoBuscar" onclick="cambiarModo('buscar')" style="flex: 1; padding: 12px; background-color: #f4f4f4; color: #333; border: 1px solid #ddd; font-weight: bold; cursor: pointer; font-family: Arial;">[🔍] Buscar</button>
-            <button id="btnModoActualizar" onclick="cambiarModo('actualizar')" style="flex: 1; padding: 12px; background-color: #f4f4f4; color: #333; border: 1px solid #ddd; font-weight: bold; cursor: pointer; font-family: Arial;">[✏️] Actualizar</button>
-            <button id="btnModoEliminar" onclick="cambiarModo('eliminar')" style="flex: 1; padding: 12px; background-color: #f4f4f4; color: #333; border: 1px solid #ddd; font-weight: bold; cursor: pointer; font-family: Arial;">[❌] Eliminar</button>
-        </div>
-
-        <div id="seccionRegistrar" class="form-container" style="margin-top: 10px; display: block;">
-            <h2 class="form-title">Registrar Pacientes</h2>
-            <form id="formularioRegistro">
-                <div class="form-group"><label>ID del Paciente:</label><input type="text" id="id_paciente" placeholder="Ej: P-011" required></div>
-                <div class="form-group"><label>Nombre Completo:</label><input type="text" id="nombre_completo" placeholder="Ej: Juan Pérez" required></div>
-                <div class="form-group"><label>Fecha de Nacimiento:</label><input type="date" id="fecha_nacimiento" required></div>
-                <div class="form-group"><label>Dirección:</label><input type="text" id="direccion" placeholder="Ej: Calle Azul, #2376" required></div>
-                <div class="form-group"><label>Correo Electrónico:</label><input type="email" id="correo_electronico" placeholder="Ej: usuario@correo.com" required></div>
-                <div class="form-group"><label>Género:</label><input type="text" id="genero" placeholder="Ej: Masculino / Femenino" required></div>
-                <div class="form-group"><label>Teléfono Personal:</label><input type="tel" id="telefono_personal" placeholder="Ej: 5555555555" required></div>
-                <div class="form-group"><label>Teléfono de Emergencia:</label><input type="tel" id="telefono_emergencia" placeholder="Ej: 5555555555" required></div>
-                <div class="form-group"><label>RFC:</label><input type="text" id="rfc" placeholder="Ej: ABCD900101XXX" required></div>
-                <div class="form-group"><label>Seguro:</label><input type="text" id="seguro" placeholder="Ej: IMSS / Privado / No" required></div>
-                
-                <button type="button" class="btn-submit" onclick="agregarPacientes()">Guardar Paciente</button>
-            </form>
-        </div>
-
-        <div id="seccionBuscar" class="form-container" style="margin-top: 10px; display: none;">
-            <h2 class="form-title" style="color: #333;">Consultar Paciente</h2>
-            <div class="form-group" style="display: flex; gap: 10px;">
-                <input type="text" id="id_buscar" placeholder="Escribe el ID del paciente a buscar...">
-                <button type="button" class="btn-submit" style="width: auto; padding: 0 25px; background-color: #333;" onclick="buscarPacientePorId()">Buscar</button>
-            </div>
-            <table border="1" style="width: 100%; border-collapse: collapse; text-align: left; font-family: Arial; margin-top: 20px; display: none;" id="tablaResultado">
-                <thead style="background-color: #067F8F; color: white;">
-                    <tr><th style="padding: 10px;">Campo</th><th style="padding: 10px;">Dato del Paciente</th></tr>
+        <div id="pacientes">
+            <h2>Pacientes Registrados</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID Paciente</th>
+                        <th>Nombre Completo</th>
+                        <th>Fecha de nacimiento</th>
+                        <th>Dirección</th>
+                        <th>Correo electrónico</th>
+                        <th>Género</th>
+                        <th>Teléfono personal</th>
+                        <th>Teléfono de emergencia</th>
+                        <th>RFC</th>
+                        <th>Seguro</th>
+                    </tr>
                 </thead>
-                <tbody id="cuerpoResultado"></tbody>
+                <tbody id="tablaPacientesCuerpo">
+                    </tbody>
             </table>
         </div>
 
-        <div id="seccionActualizar" class="form-container" style="margin-top: 10px; display: none;">
-            <h2 class="form-title" style="color: #ffc107;">Actualizar Datos de Paciente</h2>
-            <div class="form-group" style="display: flex; gap: 10px;">
-                <input type="text" id="id_actualizar_buscar" placeholder="ID del paciente a editar...">
-                <button type="button" class="btn-submit" style="width: auto; padding: 0 20px; background-color: #ffc107; color: black;" onclick="cargarPacienteParaEditar()">Cargar</button>
+        <div class="crud-bar">
+            <button id="btnModoRegistrar" class="btn-mode" onclick="cambiarModo('registrar')">Registrar Nuevo Paciente</button>
+            <button id="btnModoBuscar" class="btn-mode" onclick="cambiarModo('buscar')">Buscar Paciente</button>
+            <button id="btnModoActualizar" class="btn-mode" onclick="cambiarModo('actualizar')">Editar Paciente</button>
+            <button id="btnModoEliminar" class="btn-mode" onclick="cambiarModo('eliminar')">Eliminar Paciente</button>
+        </div>
+
+        <div id="seccionRegistrar" class="form-container" style="display: none;">
+            <h2 class="form-title">Registrar Paciente</h2>
+            <div class="form-group">
+                <label>ID del Paciente:</label>
+                <input type="text" id="id_paciente" placeholder="Ej: P-001" required>
             </div>
-            <form id="formularioEdicion" style="display: none; border-top: 2px dashed #067F8F; padding-top: 15px;">
+            <div class="form-group">
+                <label>Nombre Completo:</label>
+                <input type="text" id="nombre_completo" placeholder="Ej: Juan Pérez" required>
+            </div>
+            <div class="form-group">
+                <label>Fecha de Nacimiento:</label>
+                <input type="date" id="fecha_nacimiento" required>
+            </div>
+            <div class="form-group">
+                <label>Dirección:</label>
+                <input type="text" id="direccion" placeholder="Ej: Calle Azul, #2376" required>
+            </div>
+            <div class="form-group">
+                <label>Correo Electrónico:</label>
+                <input type="email" id="correo_electronico" placeholder="Ej: usuario@correo.com" required>
+            </div>
+            <div class="form-group">
+                <label>Género:</label>
+                <input type="text" id="genero" placeholder="Ej: Masculino / Femenino" required>
+            </div>
+            <div class="form-group">
+                <label>Teléfono Personal:</label>
+                <input type="tel" id="telefono_personal" placeholder="Ej: 5555555555" required>
+            </div>
+            <div class="form-group">
+                <label>Teléfono de Emergencia:</label>
+                <input type="tel" id="telefono_emergencia" placeholder="Ej: 5555555555" required>
+            </div>
+            <div class="form-group">
+                <label>RFC:</label>
+                <input type="text" id="rfc" placeholder="Ej: ABCD900101XXX" required>
+            </div>
+            <div class="form-group">
+                <label>Seguro:</label>
+                <input type="text" id="seguro" placeholder="Ej: GNP / AXA / No" required>
+            </div>
+            <button class="btn-submit" onclick="agregarPacientes()">Guardar Paciente</button>
+        </div>
+
+        <div id="seccionBuscar" class="form-container" style="display: none;">
+            <h2 class="form-title">Buscar Paciente</h2>
+            <div class="form-group">
+                <label>Ingresa el ID del Paciente:</label>
+                <input type="text" id="id_buscar" placeholder="Ej: P-001">
+            </div>
+            <button class="btn-submit" onclick="buscarPacientePorId()">Buscar</button>
+            <button class="btn-submit" style="background-color: #6c757d; margin-top: 10px;" onclick="obtenerPacientes()">Mostrar Todos de Nuevo</button>
+        </div>
+
+        <div id="seccionActualizar" class="form-container" style="display: none;">
+            <h2 class="form-title">Editar Paciente</h2>
+            <div class="form-group" style="display: flex; gap: 10px;">
+                <input type="text" id="id_actualizar_buscar" placeholder="Ingresa ID a editar (Ej: P-001)">
+                <button class="btn-submit" style="width: auto; white-space: nowrap;" onclick="cargarPacienteParaEditar()">Cargar Datos</button>
+            </div>
+            
+            <div id="formularioEdicion" style="display: none; border-top: 1px solid #ddd; margin-top: 15px; padding-top: 15px;">
                 <div class="form-group"><label>Nombre Completo:</label><input type="text" id="act_nombre"></div>
                 <div class="form-group"><label>Fecha de Nacimiento:</label><input type="date" id="act_fecha"></div>
                 <div class="form-group"><label>Dirección:</label><input type="text" id="act_direccion"></div>
@@ -91,17 +145,17 @@
                 <div class="form-group"><label>Teléfono de Emergencia:</label><input type="tel" id="act_telef_eme"></div>
                 <div class="form-group"><label>RFC:</label><input type="text" id="act_rfc"></div>
                 <div class="form-group"><label>Seguro:</label><input type="text" id="act_seguro"></div>
-                <button type="button" class="btn-submit" style="background-color: #28a745;" onclick="actualizarPaciente()">Guardar Cambios</button>
-            </form>
+                <button class="btn-submit" style="background-color: #ffc107; color: black;" onclick="actualizarPaciente()">Actualizar Datos</button>
+            </div>
         </div>
 
-        <div id="seccionEliminar" class="form-container" style="margin-top: 10px; display: none;">
+        <div id="seccionEliminar" class="form-container" style="display: none;">
             <h2 class="form-title" style="color: #dc3545;">Eliminar Paciente</h2>
             <div class="form-group">
-                <label>Escribe el ID del paciente a borrar definitivamente:</label>
-                <input type="text" id="id_eliminar" placeholder="Ej: P-011">
+                <label>Ingresa el ID del Paciente que deseas BORRAR:</label>
+                <input type="text" id="id_eliminar" placeholder="Ej: P-001">
             </div>
-            <button type="button" class="btn-submit" style="background-color: #dc3545;" onclick="eliminarPaciente()">Eliminar del Sistema</button>
+            <button class="btn-submit" style="background-color: #dc3545;" onclick="eliminarPaciente()">Eliminar permanentemente</button>
         </div>
     </main>
 
@@ -112,93 +166,178 @@
         <p><strong>Especialidad:</strong> Programación</p>
     </footer>
 
-    <script>
-        function cambiarModo(modo) {
-            const secciones = ['seccionRegistrar', 'seccionBuscar', 'seccionActualizar', 'seccionEliminar'];
-            const botones = ['btnModoRegistrar', 'btnModoBuscar', 'btnModoActualizar', 'btnModoEliminar'];
+    <script src="script.js"></script>
+</body>
+</html><!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Consultorio VITAE - Pacientes</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: white; margin: 20px; }
+        header { background-color: #067F8F; color: white; padding: 30px; text-align: center; }
+        nav { background-color: #333333; padding: 10px; }
+        nav a { color: white; text-decoration: none; margin-right: 15px; cursor: pointer; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid #ddd; padding: 12px; text-align: left; }
+        th { background-color: #067F8F; color: white; }
+        tr:nth-child(even) { background-color: #f2f2f2; }
+        footer { background-color: skyblue; padding: 15px; text-align: center; margin-top: 30px; }
 
-            secciones.forEach(sec => document.getElementById(sec).style.display = "none");
-            botones.forEach(btn => {
-                document.getElementById(btn).style.backgroundColor = "#f4f4f4";
-                document.getElementById(btn).style.color = "#333";
-                document.getElementById(btn).style.border = "1px solid #ddd";
-            });
+        /* Estilos de la Barra de Botones de Operaciones */
+        .crud-bar { display: flex; gap: 10px; margin: 20px 0; justify-content: center; }
+        .btn-mode { padding: 12px 20px; font-size: 15px; font-weight: bold; cursor: pointer; border-radius: 4px; border: 1px solid #ddd; background-color: #f4f4f4; color: #333; transition: all 0.3s; }
 
-            if(modo === 'registrar') {
-                document.getElementById('seccionRegistrar').style.display = "block";
-                document.getElementById('btnModoRegistrar').style.backgroundColor = "#067F8F";
-                document.getElementById('btnModoRegistrar').style.color = "white";
-            } else if(modo === 'buscar') {
-                document.getElementById('seccionBuscar').style.display = "block";
-                document.getElementById('btnModoBuscar').style.backgroundColor = "#067F8F";
-                document.getElementById('btnModoBuscar').style.color = "white";
-            } else if(modo === 'actualizar') {
-                document.getElementById('seccionActualizar').style.display = "block";
-                document.getElementById('btnModoActualizar').style.backgroundColor = "#ffc107";
-                document.getElementById('btnModoActualizar').style.color = "black";
-            } else if(modo === 'eliminar') {
-                document.getElementById('seccionEliminar').style.display = "block";
-                document.getElementById('btnModoEliminar').style.backgroundColor = "#dc3545";
-                document.getElementById('btnModoEliminar').style.color = "white";
-            }
-        }
+        .form-container { max-width: 500px; margin: 20px auto; padding: 20px; border: 1px solid #067F8F; border-radius: 5px; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; font-weight: bold; color: #333; font-size: 14px; }
+        input[type="text"], input[type="number"], input[type="date"], input[type="email"], input[type="tel"] { width: 100%; padding: 10px; border: 1px solid #ddd; font-family: Arial, sans-serif; font-size: 14px; box-sizing: border-box; }
+        input:focus { outline: 1px solid #067F8F; }
+        .btn-submit { background-color: #067F8F; color: white; border: none; padding: 12px; width: 100%; font-size: 16px; font-weight: bold; cursor: pointer; font-family: Arial, sans-serif; border-radius: 4px; }
+        .btn-submit:hover { background-color: #045b67; }
+        .form-title { color: #067F8F; margin-top: 0; margin-bottom: 20px; text-align: center; }
+    </style>
+</head>
+<body>
 
-        async function agregarPacientes(){
-            console.log("Botón presionado, ejecutando agregarPacientes..."); 
+    <header>
+        <h1>VITAE</h1>
+        <p><strong>Consultorio médico</strong></p>
+    </header>
+
+    <hr> 
+    <nav>
+        <a href="index.html">Inicio</a>
+        <a href="pacientes.html">Pacientes</a>
+        <a href="consultas.html">Consultas</a>
+        <a href="personal.html">Personal Clínico</a>
+    </nav>
+
+    <main>
+        <div id="pacientes">
+            <h2>Pacientes Registrados</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID Paciente</th>
+                        <th>Nombre Completo</th>
+                        <th>Fecha de nacimiento</th>
+                        <th>Dirección</th>
+                        <th>Correo electrónico</th>
+                        <th>Género</th>
+                        <th>Teléfono personal</th>
+                        <th>Teléfono de emergencia</th>
+                        <th>RFC</th>
+                        <th>Seguro</th>
+                    </tr>
+                </thead>
+                <tbody id="tablaPacientesCuerpo">
+                    </tbody>
+            </table>
+        </div>
+
+        <div class="crud-bar">
+            <button id="btnModoRegistrar" class="btn-mode" onclick="cambiarModo('registrar')">Registrar Nuevo Paciente</button>
+            <button id="btnModoBuscar" class="btn-mode" onclick="cambiarModo('buscar')">Buscar Paciente</button>
+            <button id="btnModoActualizar" class="btn-mode" onclick="cambiarModo('actualizar')">Editar Paciente</button>
+            <button id="btnModoEliminar" class="btn-mode" onclick="cambiarModo('eliminar')">Eliminar Paciente</button>
+        </div>
+
+        <div id="seccionRegistrar" class="form-container" style="display: none;">
+            <h2 class="form-title">Registrar Paciente</h2>
+            <div class="form-group">
+                <label>ID del Paciente:</label>
+                <input type="text" id="id_paciente" placeholder="Ej: P-001" required>
+            </div>
+            <div class="form-group">
+                <label>Nombre Completo:</label>
+                <input type="text" id="nombre_completo" placeholder="Ej: Juan Pérez" required>
+            </div>
+            <div class="form-group">
+                <label>Fecha de Nacimiento:</label>
+                <input type="date" id="fecha_nacimiento" required>
+            </div>
+            <div class="form-group">
+                <label>Dirección:</label>
+                <input type="text" id="direccion" placeholder="Ej: Calle Azul, #2376" required>
+            </div>
+            <div class="form-group">
+                <label>Correo Electrónico:</label>
+                <input type="email" id="correo_electronico" placeholder="Ej: usuario@correo.com" required>
+            </div>
+            <div class="form-group">
+                <label>Género:</label>
+                <input type="text" id="genero" placeholder="Ej: Masculino / Femenino" required>
+            </div>
+            <div class="form-group">
+                <label>Teléfono Personal:</label>
+                <input type="tel" id="telefono_personal" placeholder="Ej: 5555555555" required>
+            </div>
+            <div class="form-group">
+                <label>Teléfono de Emergencia:</label>
+                <input type="tel" id="telefono_emergencia" placeholder="Ej: 5555555555" required>
+            </div>
+            <div class="form-group">
+                <label>RFC:</label>
+                <input type="text" id="rfc" placeholder="Ej: ABCD900101XXX" required>
+            </div>
+            <div class="form-group">
+                <label>Seguro:</label>
+                <input type="text" id="seguro" placeholder="Ej: GNP / AXA / No" required>
+            </div>
+            <button class="btn-submit" onclick="agregarPacientes()">Guardar Paciente</button>
+        </div>
+
+        <div id="seccionBuscar" class="form-container" style="display: none;">
+            <h2 class="form-title">Buscar Paciente</h2>
+            <div class="form-group">
+                <label>Ingresa el ID del Paciente:</label>
+                <input type="text" id="id_buscar" placeholder="Ej: P-001">
+            </div>
+            <button class="btn-submit" onclick="buscarPacientePorId()">Buscar</button>
+            <button class="btn-submit" style="background-color: #6c757d; margin-top: 10px;" onclick="obtenerPacientes()">Mostrar Todos de Nuevo</button>
+        </div>
+
+        <div id="seccionActualizar" class="form-container" style="display: none;">
+            <h2 class="form-title">Editar Paciente</h2>
+            <div class="form-group" style="display: flex; gap: 10px;">
+                <input type="text" id="id_actualizar_buscar" placeholder="Ingresa ID a editar (Ej: P-001)">
+                <button class="btn-submit" style="width: auto; white-space: nowrap;" onclick="cargarPacienteParaEditar()">Cargar Datos</button>
+            </div>
             
-            let idPaciente = document.getElementById("id_paciente").value;
-            let nombreCompleto = document.getElementById("nombre_completo").value;
-            let fechaNacimiento = document.getElementById("fecha_nacimiento").value;
-            let direccion = document.getElementById("direccion").value;
-            let correoElectronico = document.getElementById("correo_electronico").value;
-            let genero = document.getElementById("genero").value;
-            let telefonoPersonal = document.getElementById("telefono_personal").value;
-            let telefonoEmergencia = document.getElementById("telefono_emergencia").value;
-            let rfc = document.getElementById("rfc").value;
-            let seguro = document.getElementById("seguro").value;
+            <div id="formularioEdicion" style="display: none; border-top: 1px solid #ddd; margin-top: 15px; padding-top: 15px;">
+                <div class="form-group"><label>Nombre Completo:</label><input type="text" id="act_nombre"></div>
+                <div class="form-group"><label>Fecha de Nacimiento:</label><input type="date" id="act_fecha"></div>
+                <div class="form-group"><label>Dirección:</label><input type="text" id="act_direccion"></div>
+                <div class="form-group"><label>Correo Electrónico:</label><input type="email" id="act_correo"></div>
+                <div class="form-group"><label>Género:</label><input type="text" id="act_genero"></div>
+                <div class="form-group"><label>Teléfono Personal:</label><input type="tel" id="act_telef_per"></div>
+                <div class="form-group"><label>Teléfono de Emergencia:</label><input type="tel" id="act_telef_eme"></div>
+                <div class="form-group"><label>RFC:</label><input type="text" id="act_rfc"></div>
+                <div class="form-group"><label>Seguro:</label><input type="text" id="act_seguro"></div>
+                <button class="btn-submit" style="background-color: #ffc107; color: black;" onclick="actualizarPaciente()">Actualizar Datos</button>
+            </div>
+        </div>
 
-            if(!idPaciente || !nombreCompleto || !fechaNacimiento || !direccion || !correoElectronico || !genero || !telefonoPersonal || !telefonoEmergencia || !rfc || !seguro){
-                alert("Por favor, completa todos los campos del formulario antes de guardar.");
-                return;
-            }
+        <div id="seccionEliminar" class="form-container" style="display: none;">
+            <h2 class="form-title" style="color: #dc3545;">Eliminar Paciente</h2>
+            <div class="form-group">
+                <label>Ingresa el ID del Paciente que deseas BORRAR:</label>
+                <input type="text" id="id_eliminar" placeholder="Ej: P-001">
+            </div>
+            <button class="btn-submit" style="background-color: #dc3545;" onclick="eliminarPaciente()">Eliminar permanentemente</button>
+        </div>
+    </main>
 
-            const datosPacientes = {
-                ID_Paciente: idPaciente,
-                Nombre_Completo: nombreCompleto,
-                Fecha_nacimiento: fechaNacimiento,
-                Direccion: direccion,
-                Correo_electronico: correoElectronico,
-                Genero: genero,
-                Telefono_personal: telefonoPersonal,
-                Telefono_emergencia: telefonoEmergencia,
-                RFC: rfc,
-                Seguro: seguro
-            };
+    <footer>
+        <p><strong>Nombre completo:</strong> Yessenia Leos</p>
+        <p><strong>No. de control:</strong> 24308051280576</p>
+        <p><strong>Semestre y Grupo:</strong> 4-I</p>
+        <p><strong>Especialidad:</strong> Programación</p>
+    </footer>
 
-            try {
-                const respuesta = await fetch('http://localhost:5000/api/pacientes', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(datosPacientes)
-                });
-
-                const resultado = await respuesta.json();
-
-                if (respuesta.ok) {
-                    alert("¡Éxito!: " + resultado.mensaje);
-                    document.getElementById("formularioRegistro").reset();
-                } else {
-                    alert("Error en el servidor: " + resultado.error);
-                }
-            } catch (error) {
-                console.error("Error completo:", error);
-                alert("No se pudo conectar con el servidor. Verifica que ejecutaste 'node server.js' en la terminal.");
-            }
-        }
-        async function buscarPacientePorId() { /* ... */ }
-        async function cargarPacienteParaEditar() { /* ... */ }
-        async function actualizarPaciente() { /* ... */ }
-        async function eliminarPaciente() { /* ... */ }
-    </script>
+    <script src="script.js"></script>
+</body>
+</html>
 </body>
 </html>
