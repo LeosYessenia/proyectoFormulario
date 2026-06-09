@@ -37,7 +37,7 @@
     <hr> 
     <nav>
         <a href="index.html">Inicio</a>
-        <a href="pacientes.html">Pacientes</a>
+        <a href="pacientesformulario.html">Pacientes</a>
         <a href="consultas.html">Consultas</a>
         <a href="personal.html">Personal Clínico</a>
     </nav>
@@ -62,7 +62,7 @@
                     </tr>
                 </thead>
                 <tbody id="tablaPacientesCuerpo">
-                    </tbody>
+                </tbody>
             </table>
         </div>
 
@@ -122,7 +122,7 @@
             <h2 class="form-title">Buscar Paciente</h2>
             <div class="form-group">
                 <label>Ingresa el ID del Paciente:</label>
-                <input type="text" id="id_buscar" placeholder="Ej: P-001">
+                <input type="text" id="id_buscar" placeholder="Ej: 001">
             </div>
             <button class="btn-submit" onclick="buscarPacientePorId()">Buscar</button>
             <button class="btn-submit" style="background-color: #6c757d; margin-top: 10px;" onclick="obtenerPacientes()">Mostrar Todos de Nuevo</button>
@@ -131,7 +131,7 @@
         <div id="seccionActualizar" class="form-container" style="display: none;">
             <h2 class="form-title">Editar Paciente</h2>
             <div class="form-group" style="display: flex; gap: 10px;">
-                <input type="text" id="id_actualizar_buscar" placeholder="Ingresa ID a editar (Ej: P-001)">
+                <input type="text" id="id_actualizar_buscar" placeholder="Ingresa ID a editar (Ej: 001)">
                 <button class="btn-submit" style="width: auto; white-space: nowrap;" onclick="cargarPacienteParaEditar()">Cargar Datos</button>
             </div>
             
@@ -153,7 +153,7 @@
             <h2 class="form-title" style="color: #dc3545;">Eliminar Paciente</h2>
             <div class="form-group">
                 <label>Ingresa el ID del Paciente que deseas BORRAR:</label>
-                <input type="text" id="id_eliminar" placeholder="Ej: P-001">
+                <input type="text" id="id_eliminar" placeholder="Ej: 001">
             </div>
             <button class="btn-submit" style="background-color: #dc3545;" onclick="eliminarPaciente()">Eliminar permanentemente</button>
         </div>
@@ -167,7 +167,5 @@
     </footer>
 
     <script src="script.js"></script>
-</body>
-</html>
 </body>
 </html>
