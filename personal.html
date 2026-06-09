@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Consultorio VITAE - Personal</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: white; margin: 20px; }
+        header { background-color: #067F8F; color: white; padding: 30px; text-align: center; }
+        nav { background-color: #333333; padding: 10px; }
+        nav a { color: white; text-decoration: none; margin-right: 15px; cursor: pointer; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid #ddd; padding: 12px; text-align: left; }
+        th { background-color: #067F8F; color: white; }
+        tr:nth-child(even) { background-color: #f2f2f2; }
+        footer { background-color: skyblue; padding: 15px; text-align: center; margin-top: 30px; }
+
+        .crud-bar { display: flex; gap: 10px; margin: 20px 0; justify-content: center; }
+        .btn-mode { padding: 12px 20px; font-size: 15px; font-weight: bold; cursor: pointer; border-radius: 4px; border: 1px solid #ddd; background-color: #f4f4f4; color: #333; transition: all 0.3s; }
+
+        .form-container { max-width: 500px; margin: 20px auto; padding: 20px; border: 1px solid #067F8F; border-radius: 5px; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; font-weight: bold; color: #333; font-size: 14px; }
+        input[type="text"], input[type="number"], input[type="date"], input[type="email"], input[type="tel"] { width: 100%; padding: 10px; border: 1px solid #ddd; font-family: Arial, sans-serif; font-size: 14px; box-sizing: border-box; }
+        input:focus { outline: 1px solid #067F8F; }
+        .btn-submit { background-color: #067F8F; color: white; border: none; padding: 12px; width: 100%; font-size: 16px; font-weight: bold; cursor: pointer; font-family: Arial, sans-serif; border-radius: 4px; }
+        .btn-submit:hover { background-color: #045b67; }
+        .form-title { color: #067F8F; margin-top: 0; margin-bottom: 20px; text-align: center; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>VITAE</h1>
+        <p><strong>Consultorio médico</strong></p>
+    </header>
+
+    <hr> 
+    <nav>
+        <a href="index.html">Inicio</a>
+        <a href="pacientesformulario.html">Pacientes</a>
+        <a href="consultas.html">Consultas</a>
+        <a href="personal.html">Personal Clínico</a>
+    </nav>
+
+    <main>
+        <div id="personal">
+            <h2>Personal Clínico Registrado</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID Médico</th>
+                        <th>Nombre Completo</th>
+                        <th>Especialidad</th>
+                        <th>Cédula Profesional</th>
+                        <th>Teléfono Personal</th>
+                        <th>Cargo</th>
+                        <th>Turno</th>
+                        <th>RFC</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="tablaPersonalCuerpo">
+                    </tbody>
+            </table>
+        </div>
+
+        <div class="crud-bar">
+            <button id="btnModoRegistrar" class="btn-mode" onclick="cambiarModo('registrar')">Registrar Nuevo Personal</button>
+            <button id="btnModoBuscar" class="btn-mode" onclick="cambiarModo('buscar')">Buscar Personal</button>
+            <button id="btnModoActualizar" class="btn-mode" onclick="cambiarModo('actualizar')">Editar Personal</button>
+            <button id="btnModoEliminar" class="btn-mode" onclick="cambiarModo('eliminar')">Eliminar Personal</button>
+        </div>
+
+        <div id="seccionRegistrar" class="form-container" style="display: none;">
+            <h2 class="form-title">Registrar Personal</h2>
+            <div class="form-group">
+                <label>ID del Médico / Empleado:</label>
+                <input type="text" id="id_medico" placeholder="Se generará al guardar" readonly>
+            </div>
+            <div class="form-group">
+                <label>Nombre Completo:</label>
+                <input type="text" id="nombre_completo" placeholder="Ej: Armando León Casas" required>
+            </div>
+            <div class="form-group">
+                <label>Especialidad:</label>
+                <input type="text" id="especialidad" placeholder="Ej: Medicina general / N/A" required>
+            </div>
+            <div class="form-group">
+                <label>Cédula Profesional:</label>
+                <input type="text" id="cedula" placeholder="Ej: 123456-A" required>
+            </div>
+            <div class="form-group">
+                <label>Teléfono Personal:</label>
+                <input type="tel" id="telefono_personal" placeholder="Ej: 5550148" required>
+            </div>
+            <div class="form-group">
+                <label>Cargo:</label>
+                <input type="text" id="cargo" placeholder="Ej: Medico general" required>
+            </div>
+            <div class="form-group">
+                <label>Turno:</label>
+                <input type="text" id="turno" placeholder="Ej: Matutino / Vespertino" required>
+            </div>
+            <div class="form-group">
+                <label>RFC:</label>
+                <input type="text" id="rfc" placeholder="Ej: LECA98765" required>
+            </div>
+            <button class="btn-submit" onclick="agregarPersonal()">Guardar Personal</button>
+        </div>
+
+        <div id="seccionBuscar" class="form-container" style="display: none;">
+            <h2 class="form-title">Buscar Personal</h2>
+            <div class="form-group">
+                <label>Ingresa el ID del Personal:</label>
+                <input type="text" id="id_buscar" placeholder="Ej: EMP-001">
+            </div>
+            <button class="btn-submit" onclick="buscarPersonalPorId()">Buscar</button>
+            <button class="btn-submit" style="background-color: #6c757d; margin-top: 10px;" onclick="obtenerPersonal()">Mostrar Todos de Nuevo</button>
+        </div>
+
+        <div id="seccionActualizar" class="form-container" style="display: none;">
+            <h2 class="form-title">Editar Personal</h2>
+            <div class="form-group" style="display: flex; gap: 10px;">
+                <input type="text" id="id_actualizar_buscar" placeholder="Ingresa ID a editar (Ej: EMP-001)">
+                <button class="btn-submit" style="width: auto; white-space: nowrap;" onclick="cargarPersonalParaEditar()">Cargar Datos</button>
+            </div>
+            
+            <div id="formularioEdicion" style="display: none; border-top: 1px solid #ddd; margin-top: 15px; padding-top: 15px;">
+                <div class="form-group"><label>Nombre Completo:</label><input type="text" id="act_nombre"></div>
+                <div class="form-group"><label>Especialidad:</label><input type="text" id="act_especialidad"></div>
+                <div class="form-group"><label>Cédula Profesional:</label><input type="text" id="act_cedula"></div>
+                <div class="form-group"><label>Teléfono Personal:</label><input type="tel" id="act_telef_per"></div>
+                <div class="form-group"><label>Cargo:</label><input type="text" id="act_cargo"></div>
+                <div class="form-group"><label>Turno:</label><input type="text" id="act_turno"></div>
+                <div class="form-group"><label>RFC:</label><input type="text" id="act_rfc"></div>
+                <button class="btn-submit" style="background-color: #ffc107; color: black;" onclick="actualizarPersonal()">Actualizar Datos</button>
+            </div>
+        </div>
+
+        <div id="seccionEliminar" class="form-container" style="display: none;">
+            <h2 class="form-title" style="color: #dc3545;">Eliminar Personal Clínico</h2>
+            <div class="form-group">
+                <label>Ingresa el ID del Personal que deseas BORRAR:</label>
+                <input type="text" id="id_eliminar" placeholder="Ej: EMP-001">
+            </div>
+            <button class="btn-submit" style="background-color: #dc3545;" onclick="eliminarPersonal()">Eliminar permanentemente</button>
+        </div>
+    </main>
+
+    <footer>
+        <p><strong>Nombre completo:</strong> Yessenia Leos</p>
+        <p><strong>No. de control:</strong> 24308051280576</p>
+        <p><strong>Semestre y Grupo:</strong> 4-I</p>
+        <p><strong>Especialidad:</strong> Programación</p>
+    </footer>
+
+    <script src="script_personal.js"></script>
+</body>
+</html>
