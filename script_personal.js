@@ -14,7 +14,6 @@ function renderizarTablaPersonal(listaPersonal) {
     listaPersonal.forEach(empleado => {
         if (!empleado) return;
 
-        // CORRECCIÓN: Compatibilidad total con las variables de MongoDB Atlas
         const idMostrar = empleado.ID_Medico || empleado.id_medico || empleado.id || 'N/A';
 
         cuerpoTabla.innerHTML += `
@@ -105,7 +104,7 @@ async function agregarPersonal(){
     };
 
     try {
-        const respuesta = await fetch('/api/personal', {
+        const respuesta = await fetch('https://proyectoformulario.onrender.com/api/personal');
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(datosPersonal)
