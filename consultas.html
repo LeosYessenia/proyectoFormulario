@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Consultorio VITAE - Consultas</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: white; margin: 20px; }
+        header { background-color: #067F8F; color: white; padding: 30px; text-align: center; }
+        nav { background-color: #333333; padding: 10px; }
+        nav a { color: white; text-decoration: none; margin-right: 15px; cursor: pointer; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid #ddd; padding: 12px; text-align: left; }
+        th { background-color: #067F8F; color: white; }
+        tr:nth-child(even) { background-color: #f2f2f2; }
+        footer { background-color: skyblue; padding: 15px; text-align: center; margin-top: 30px; }
+
+        .crud-bar { display: flex; gap: 10px; margin: 20px 0; justify-content: center; }
+        .btn-mode { padding: 12px 20px; font-size: 15px; font-weight: bold; cursor: pointer; border-radius: 4px; border: 1px solid #ddd; background-color: #f4f4f4; color: #333; transition: all 0.3s; }
+
+        .form-container { max-width: 500px; margin: 20px auto; padding: 20px; border: 1px solid #067F8F; border-radius: 5px; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; font-weight: bold; color: #333; font-size: 14px; }
+        input[type="text"], input[type="number"], input[type="date"], input[type="email"], input[type="tel"] { width: 100%; padding: 10px; border: 1px solid #ddd; font-family: Arial, sans-serif; font-size: 14px; box-sizing: border-box; }
+        input:focus { outline: 1px solid #067F8F; }
+        .btn-submit { background-color: #067F8F; color: white; border: none; padding: 12px; width: 100%; font-size: 16px; font-weight: bold; cursor: pointer; font-family: Arial, sans-serif; border-radius: 4px; }
+        .btn-submit:hover { background-color: #045b67; }
+        .form-title { color: #067F8F; margin-top: 0; margin-bottom: 20px; text-align: center; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>VITAE</h1>
+        <p><strong>Consultorio médico</strong></p>
+    </header>
+
+    <hr> 
+    <nav>
+        <a href="index.html">Inicio</a>
+        <a href="pacientesformulario.html">Pacientes</a>
+        <a href="consultas.html">Consultas</a>
+        <a href="personal.html">Personal Clínico</a>
+    </nav>
+
+    <main>
+        <div id="consultas">
+            <h2>Módulo de Consultas y Citas</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID Cita</th>
+                        <th>Fecha</th>
+                        <th>Hora</th>
+                        <th>Motivo</th>
+                        <th>Estado</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="tablaConsultasCuerpo">
+                    </tbody>
+            </table>
+        </div>
+
+        <div class="crud-bar">
+            <button id="btnModoRegistrar" class="btn-mode" onclick="cambiarModo('registrar')">Agendar Nueva Consulta</button>
+            <button id="btnModoBuscar" class="btn-mode" onclick="cambiarModo('buscar')">Buscar Cita</button>
+            <button id="btnModoActualizar" class="btn-mode" onclick="cambiarModo('actualizar')">Editar Cita</button>
+            <button id="btnModoEliminar" class="btn-mode" onclick="cambiarModo('eliminar')">Cancelar/Eliminar Cita</button>
+        </div>
+
+        <div id="seccionRegistrar" class="form-container" style="display: none;">
+            <h2 class="form-title">Agendar Consulta</h2>
+            <div class="form-group">
+                <label>ID Cita:</label>
+                <input type="text" id="id_cita" placeholder="Se generará al guardar" readonly>
+            </div>
+            <div class="form-group">
+                <label>Fecha de la Consulta:</label>
+                <input type="date" id="fecha_consulta" required>
+            </div>
+            <div class="form-group">
+                <label>Hora:</label>
+                <input type="text" id="hora_consulta" placeholder="Ej: 14:00" required>
+            </div>
+            <div class="form-group">
+                <label>Motivo de la Consulta:</label>
+                <input type="text" id="motivo" placeholder="Ej: Dolor de espalda" required>
+            </div>
+            <div class="form-group">
+                <label>Estado de la Cita:</label>
+                <input type="text" id="estado" placeholder="Ej: Pendiente / Confirmada" required>
+            </div>
+            <button class="btn-submit" onclick="agregarConsulta()">Agendar Consulta</button>
+        </div>
+
+        <div id="seccionBuscar" class="form-container" style="display: none;">
+            <h2 class="form-title">Buscar Cita</h2>
+            <div class="form-group">
+                <label>Ingresa el ID de la Cita:</label>
+                <input type="text" id="id_buscar" placeholder="Ej: C-001">
+            </div>
+            <button class="btn-submit" onclick="buscarConsultaPorId()">Buscar</button>
+            <button class="btn-submit" style="background-color: #6c757d; margin-top: 10px;" onclick="obtenerConsultas()">Mostrar Todas de Nuevo</button>
+        </div>
+
+        <div id="seccionActualizar" class="form-container" style="display: none;">
+            <h2 class="form-title">Editar Cita</h2>
+            <div class="form-group" style="display: flex; gap: 10px;">
+                <input type="text" id="id_actualizar_buscar" placeholder="Ingresa ID de cita (Ej: C-001)">
+                <button class="btn-submit" style="width: auto; white-space: nowrap;" onclick="cargarConsultaParaEditar()">Cargar Datos</button>
+            </div>
+            
+            <div id="formularioEdicion" style="display: none; border-top: 1px solid #ddd; margin-top: 15px; padding-top: 15px;">
+                <div class="form-group"><label>Fecha de la Consulta:</label><input type="date" id="act_fecha"></div>
+                <div class="form-group"><label>Hora:</label><input type="text" id="act_hora"></div>
+                <div class="form-group"><label>Motivo de la Consulta:</label><input type="text" id="act_motivo"></div>
+                <div class="form-group"><label>Estado de la Cita:</label><input type="text" id="act_estado"></div>
+                <button class="btn-submit" style="background-color: #ffc107; color: black;" onclick="actualizarConsulta()">Actualizar Datos</button>
+            </div>
+        </div>
+
+        <div id="seccionEliminar" class="form-container" style="display: none;">
+            <h2 class="form-title" style="color: #dc3545;">Eliminar Cita</h2>
+            <div class="form-group">
+                <label>Ingresa el ID de la Cita que deseas BORRAR:</label>
+                <input type="text" id="id_eliminar" placeholder="Ej: C-001">
+            </div>
+            <button class="btn-submit" style="background-color: #dc3545;" onclick="eliminarConsulta()">Eliminar permanentemente</button>
+        </div>
+    </main>
+
+    <footer>
+        <p><strong>Nombre completo:</strong> Yessenia Leos</p>
+        <p><strong>No. de control:</strong> 24308051280576</p>
+        <p><strong>Semestre y Grupo:</strong> 4-I</p>
+        <p><strong>Especialidad:</strong> Programación</p>
+    </footer>
+
+    <script src="script_consultas.js"></script>
+</body>
+</body>
+</html>
