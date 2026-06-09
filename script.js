@@ -97,7 +97,6 @@ async function agregarPacientes(){
         return;
     }
 
-    // Corregido: Se añade la propiedad declarada explícitamente para que el servidor la procese
     const datosPacientes = {
         ID_Paciente: "", 
         Nombre_Completo: nombreCompleto,
@@ -112,7 +111,7 @@ async function agregarPacientes(){
     };
 
     try {
-        const respuesta = await fetch('/api/pacientes', {
+        const respuesta = await fetch('https://proyectoformulario.onrender.com/api/personal');
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(datosPacientes)
