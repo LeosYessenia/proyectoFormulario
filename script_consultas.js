@@ -14,6 +14,7 @@ function renderizarTablaConsultas(listaConsultas) {
     listaConsultas.forEach(consulta => {
         if (!consulta) return;
 
+        // CORRECCIÓN: Mapeo inteligente e infalible para evitar campos vacíos (undefined)
         const idMostrar = consulta.ID_Cita || consulta.id_cita || consulta.id || 'N/A';
         const fechaMostrar = consulta.Fecha_Consulta || consulta.fecha_consulta || '';
         const horaMostrar = consulta.Hora_Consulta || consulta.hora_consulta || '';
@@ -99,7 +100,7 @@ async function agregarConsulta(){
     };
 
     try {
-        const respuesta = await fetch('https://proyectoformulario.onrender.com/api/personal');
+        const respuesta = await fetch('/api/consultas', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(datosConsulta)
