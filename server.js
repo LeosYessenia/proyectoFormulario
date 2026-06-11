@@ -51,11 +51,7 @@ const ConsultasSchema = new mongoose.Schema({
 });
 const Consultas = mongoose.model('Consultas', ConsultasSchema);
 
-
-// ==========================================
 // 2. RUTAS CRUD: PACIENTES
-// ==========================================
-
 app.get('/api/pacientes', async (req, res) => {
     try {
         const todosLosPacientes = await Pacientes.find();
@@ -78,8 +74,16 @@ app.get('/api/pacientes/:id', async (req, res) => {
 
 app.post('/api/pacientes', async (req, res) => {
     try {
-        const totalPacientes = await Pacientes.countDocuments();
-        const siguienteNumero = totalPacientes + 1;
+        // Busca el paciente con el ID más alto de forma ordenada
+        const ultimoPaciente = await Pacientes.findOne().sort({ ID_Paciente: -1 });
+        
+        let siguienteNumero = 1;
+        if (ultimoPaciente && ultimoPaciente.ID_Paciente) {
+            // Convierte el ID de texto ("004") a número (4) y le suma 1
+            siguienteNumero = parseInt(ultimoPaciente.ID_Paciente, 10) + 1;
+        }
+        
+        // Lo convierte otra vez a texto con tres dígitos (ej. "005")
         const idTresDigitos = String(siguienteNumero).padStart(3, '0');
 
         const nuevoPacientes = new Pacientes();
@@ -124,10 +128,7 @@ app.delete('/api/pacientes/:id', async (req, res) => {
 });
 
 
-// ==========================================
 // 3. RUTAS CRUD: PERSONAL CLÍNICO
-// ==========================================
-
 app.get('/api/personal', async (req, res) => {
     try {
         const todoElPersonal = await Personal.find();
@@ -190,10 +191,7 @@ app.delete('/api/personal/:id', async (req, res) => {
 });
 
 
-// ==========================================
 // 4. RUTAS CRUD: CONSULTAS
-// ==========================================
-
 app.get('/api/consultas', async (req, res) => {
     try {
         const todasLasConsultas = await Consultas.find();
