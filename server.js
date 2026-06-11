@@ -150,8 +150,18 @@ app.get('/api/personal/:id', async (req, res) => {
 
 app.post('/api/personal', async (req, res) => {
     try {
-        const totalPersonal = await Personal.countDocuments();
-        const idFormateado = "EMP-" + String(totalPersonal + 1).padStart(3, '0');
+        // Busca el miembro del personal con el ID más alto de forma ordenada
+        const ultimoPersonal = await Personal.findOne().sort({ ID_Medico: -1 });
+        
+        let siguienteNumero = 1;
+        if (ultimoPersonal && ultimoPersonal.ID_Medico) {
+            // "EMP-004" -> extrae solo el número "004", lo convierte a 4 y le suma 1
+            const numeroActual = ultimoPersonal.ID_Medico.replace("EMP-", "");
+            siguienteNumero = parseInt(numeroActual, 10) + 1;
+        }
+
+        // Lo convierte otra vez a texto con el formato "EMP-005"
+        const idFormateado = "EMP-" + String(siguienteNumero).padStart(3, '0');
 
         const nuevoEmpleado = new Personal();
         nuevoEmpleado.ID_Medico = idFormateado;
@@ -213,8 +223,18 @@ app.get('/api/consultas/:id', async (req, res) => {
 
 app.post('/api/consultas', async (req, res) => {
     try {
-        const totalConsultas = await Consultas.countDocuments();
-        const idFormateado = "C-" + String(totalConsultas + 1).padStart(3, '0');
+        // Busca la consulta con el ID más alto de forma ordenada
+        const ultimaConsulta = await Consultas.findOne().sort({ ID_Cita: -1 });
+        
+        let siguienteNumero = 1;
+        if (ultimaConsulta && ultimaConsulta.ID_Cita) {
+            // "C-004" -> extrae solo el número "004", lo convierte a 4 y le suma 1
+            const numeroActual = ultimaConsulta.ID_Cita.replace("C-", "");
+            siguienteNumero = parseInt(numeroActual, 10) + 1;
+        }
+
+        // Lo convierte otra vez a texto con el formato "C-005"
+        const idFormateado = "C-" + String(siguienteNumero).padStart(3, '0');
 
         const nuevaConsulta = new Consultas();
         nuevaConsulta.ID_Cita = idFormateado;
